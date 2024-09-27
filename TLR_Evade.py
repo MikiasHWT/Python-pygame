@@ -1,3 +1,11 @@
+# You : A Virus particle, recently released by Patient Zero, (into the blood stream?...Nevermind that)
+
+# The Enemy: Macrophages, Monocytes, Dendritic Cells... If it came from the Bone Marrow, its no friend of ours. 
+
+# Your Mission: Avoid all immune cells and their pathogen-associated molecular patterns (ie: Toll Like Receptors - TLR's)
+
+# Good Luck soldier!
+
 import pygame
 from pygame.locals import *
 import random
