@@ -49,6 +49,9 @@ def draw_text(text, font, text_col, x, y):
     img = font.render(text, True, text_col)
     screen.blit(img, (x, y))
 
+# Define font for game over screen
+small_font = pygame.font.SysFont('Bauhaus 93', 40)
+
 # Function to reset game
 def reset_game():
     tlr_group.empty()
@@ -57,6 +60,7 @@ def reset_game():
     score = 0
     ground_scroll = 0
     flying = False
+    game_over = False
     return score
 
 # Virus particle class 
@@ -185,20 +189,29 @@ while run:
             ground_scroll = 0
         tlr_group.update()
 
-    # Game over logic and restart
+    # Game over logic and restart prompt
     if game_over:
-        if button.draw():
-            game_over = False
-            score = reset_game()
+        draw_text("DETECTED!", font, white, screen_width // 2 -150, screen_height // 2 -100)
+        draw_text("Press a key to Sneeze Again", small_font, white, screen_width // 2 - 250, screen_height // 2 + 50)
+
+        # Wait for key press
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+            if event.type == pygame.KEYDOWN:
+                score = reset_game()
+                game_over = False
+            
         patient_x = my_start
 
     # Event handling
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            run = False
-        if event.type == pygame.MOUSEBUTTONDOWN and not flying and not game_over:
-            flying = True
-            patient_x += (ground_scroll / 2)
+    else:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+            if event.type == pygame.KEYDOWN and not flying and not game_over:
+                flying = True
+                patient_x += (ground_scroll / 2)
 
     pygame.display.update()
 
